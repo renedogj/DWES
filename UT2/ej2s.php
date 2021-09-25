@@ -1,4 +1,11 @@
 <?php
+	function añadirCeros(string $substr){
+		while(strlen($substr) < 8){
+			$substr = "0" . $substr;
+		}
+		return $substr;
+	}
+
 	$ip = "192.160.0.230";
 	$binario = "";
 	$ipAux = $ip;
@@ -7,11 +14,11 @@
 		if ($posicion == null) {
 			$posicion = strlen($ipAux);
 			$substr = substr($ipAux,0,$posicion);
-			$binario .= sprintf( "%08d", decbin($substr));
+			$binario .= añadirCeros(decbin($substr));
 			$ipAux = str_replace($substr,"",$ipAux);
 		}else{
 			$substr = substr($ipAux,0,$posicion);
-			$binario .= sprintf( "%08d", decbin($substr)) . ".";
+			$binario .= añadirCeros(decbin($substr)) . ".";
 			$ipAux = substr($ipAux,$posicion+1,strlen($ipAux));
 		}
 	}
