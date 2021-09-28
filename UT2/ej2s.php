@@ -1,12 +1,5 @@
 <?php
-	function añadirCeros(string $substr){
-		while(strlen($substr) < 8){
-			$substr = "0" . $substr;
-		}
-		return $substr;
-	}
-
-	$ip = "192.160.0.230";
+	$ip = "192.162.206.231";
 	$binario = "";
 	$ipAux = $ip;
 	while(!empty($ipAux)){
@@ -14,12 +7,15 @@
 		if ($posicion == null) {
 			$posicion = strlen($ipAux);
 			$substr = substr($ipAux,0,$posicion);
-			$binario .= añadirCeros(decbin($substr));
+			$binario .= str_pad(decbin($substr),8,"0",STR_PAD_LEFT);
 			$ipAux = str_replace($substr,"",$ipAux);
 		}else{
 			$substr = substr($ipAux,0,$posicion);
-			$binario .= añadirCeros(decbin($substr)) . ".";
+			$binario .= str_pad(decbin($substr),8,"0",STR_PAD_LEFT) . ".";
 			$ipAux = substr($ipAux,$posicion+1,strlen($ipAux));
+			if($ipAux == "0"){
+				$binario .= str_pad(0,8,"0",STR_PAD_LEFT);
+			}
 		}
 	}
 	echo "IP " . $ip . " en binario es " . $binario;
