@@ -6,7 +6,45 @@
 		"VolumenTitulos",
 		"Volumen"
 	);
-	$empresas = array (
+	$nombreEmpresas = array(
+		"Inditex",
+		"Aena",
+		"Acciona",
+		"Repsol",
+		"Acs",
+		"BBVA",
+		"CaixaBank",
+		"Santander",
+		"A",
+		"B",
+		"C",
+		"D",
+		"E",
+		"F",
+		"G",
+		"H",
+		"I",
+		"J",
+		"K",
+		"L",
+		"M",
+		"N",
+		"Ñ",
+		"O",
+		"P",
+		"Q",
+		"R",
+		"S",
+		"T",
+		"U",
+		"V",
+		"W",
+		"X",
+		"Y",
+		"Z"
+	);
+	$empresas = array();
+	/*$empresas = array (
 		"Inditex" => array (
 			$datosGuardados[0]=>31.800,
 			$datosGuardados[1]=>-0.06,
@@ -252,7 +290,19 @@
 			$datosGuardados[3]=>482.599,
 			$datosGuardados[4]=>15306460.74
 		)
-	);
+	);*/
+	foreach($nombreEmpresas as $i){
+		$valoresEmpresa = array(
+			$datosGuardados[0]=>rand(0,100),
+			$datosGuardados[1]=>rand(-1,1),
+			$datosGuardados[2]=>rand(-100,100),
+			$datosGuardados[3]=>rand(0,1000),
+			$datosGuardados[4]=>rand()
+		);
+		$empresas[$i] = $valoresEmpresa;
+	}
+
+
 	echo "<table><tr>";
 	foreach($datosGuardados as $i){
 		echo "<th>" . $i . "</th>";
