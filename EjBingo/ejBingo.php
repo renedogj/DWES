@@ -12,7 +12,6 @@
 	define("numJugadores", 4);
 	define("cartonPorJugador", 3);
 
-	$jugadores = array();
 	$tachados = array();
 	$bingo = false;
 
@@ -41,10 +40,11 @@
 	echo "</div>";
 
 	echo "<br><b>Ganadores:</b><br>";
-	for($i = 0; $i < count($ganadores); $i++){
-		echo "<h3 class='carton'>Jugador: " . $ganadores[$i][0] . "</h3>";
-		mostrarCarton($ganadores[$i][0],$ganadores[$i][1]);
-	}	
+	$numGanadores = count($ganadores);
+	foreach($ganadores as $ganador){
+		echo "<h3 class='carton'>Jugador: " . $ganador[0] . "</h3>";
+		mostrarCarton($ganador[0],$ganador[1]);
+	}
 
 	//Función para sacar bola y añadirla al array tachados
 	function sacarBola(){
@@ -61,10 +61,10 @@
 	function comprobarCartones(){
 		global $jugadores,$tachados;
 		$ganadores = array();
-		for($i = 0; $i < numJugadores; $i++){
-			for($j = 0; $j < cartonPorJugador; $j++){
-				if(count(array_diff($jugadores[$i][$j],$tachados)) == 0){
-					$ganador = array($i,$j);
+		foreach($jugadores as $jugador => $cartones){
+			foreach($cartones as $numCarton => $carton){
+				if(count(array_diff($carton,$tachados)) == 0){
+					$ganador = array($jugador,$numCarton);
 					array_push($ganadores, $ganador);
 				}
 			}
@@ -88,11 +88,11 @@
 		global $jugadores,$tachados;
 		echo "<p class='carton'>Cartón: " . $carton . "</p>";
 		echo "<table><tr>";
-		for($i = 0; $i < numerosPorCarton; $i++){
-			if(in_array($jugadores[$jugador][$carton][$i],$tachados)){
-				echo "<td><strike>" . $jugadores[$jugador][$carton][$i] . "</strike></td>";
+		foreach($jugadores[$jugador][$carton] as $i){
+			if(in_array($i,$tachados)){
+				echo "<td><strike>" . $i . "</strike></td>";
 			}else{
-				echo "<td>" . $jugadores[$jugador][$carton][$i] . "</td>";
+				echo "<td>" . $i . "</td>";
 			}
 		}
 		echo "</tr></table>";

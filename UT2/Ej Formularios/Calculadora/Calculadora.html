@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Calculadora</title>
+</head>
+<body>
+	<form method="post" action="Calculadora.php">
+		<label for="num1">Operando1:</label>
+		<input type="number" name="num1">
+		<br><br>
+		<label for="num2">Operando2:</label>
+		<input type="number" name="num2">
+		<br><br>
+		<label for="operacion"> Seleciona operación: </label>
+		<br>
+		<input type="radio" name="operacion" value="+" checked>suma
+		<br>
+		<input type="radio" name="operacion" value="-">resta
+		<br>
+		<input type="radio" name="operacion" value="*">multiplicacion
+		<br>
+		<input type="radio" name="operacion" value="/">suma
+		<br><br>
+		<input type="submit" name="Enviar">
+		<input type="reset" name="Borrar">
+	</form>
+
+</body>
+</html>
