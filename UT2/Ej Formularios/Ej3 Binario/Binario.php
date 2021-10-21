@@ -2,10 +2,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Calculadora</title>
+	<title>Binario</title>
 </head>
 <body>
-	<h1>Calculadora</h1>
+	<h1>Binario</h1>
 	<form>
 		<?php
 		$decimal = $_POST['decimal'];

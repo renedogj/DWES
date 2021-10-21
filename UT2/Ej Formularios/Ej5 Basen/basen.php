@@ -2,10 +2,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Calculadora</title>
+	<title>Cambio de base</title>
 </head>
 <body>
-	<h1>Calculadora</h1>
+	<h1>Cambio de base</h1>
 	<form>
 		<?php
 		$num = explode("/",$_POST['num']);
