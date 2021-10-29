@@ -35,8 +35,8 @@
 	$fecha = str_pad($fecha,10);
 	$localidad = str_pad($localidad,27);
 
-	$linea = $nombre . $apellido1 . $apellido2 . $fecha . $localidad . "\n";
-	$file = fopen("alumnos1.txt","w");
+	$linea = $nombre . $apellido1 . $apellido2 . $fecha . $localidad;
+	$file = fopen("alumnos1.txt","a");
 	fwrite($file, $linea);
 	fclose($file);
 	?>

@@ -29,9 +29,10 @@
 	foreach($_POST as $value){
 		$linea .= $value . "##";
 	}
+	$linea = rtrim($linea,"##");
 	$linea .= "\n";
-	
-	$file = fopen("alumnos2.txt","w");
+
+	$file = fopen("alumnos2.txt","a");
 	fwrite($file, $linea);
 	fclose($file);
 	?>
