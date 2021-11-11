@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Practica ficheros ej6</title>
+</head>
+<body>
+	<h2>Operaciones ficheros</h2>
+	<form method="post" action="fichero7.php">
+		<label>Fichero de origen (Path/nombre)</label>
+		<input type="text" name="pathOrigen"><br>
+		<label>Fichero de destino (Path/nombre)</label>
+		<input type="text" name="pathDestino"><br>
+		<br>
+		<input type="radio" name="operaciones" id="copiar" value="1">
+		<label for="copiar">
+			Copiar Fichero
+		</label><br>
+		<input type="radio" name="operaciones" id="renombrar" value="2">
+		<label for="renombrar">
+			Renombrar fichero
+		</label><br>
+		<input type="radio" name="operaciones" id="borrar" value="3">
+		<label for="borrar">
+			Borrar Fichero
+		</label><br>
+		<br>
+		<input type="submit" value="Enviar"> 
+	</form>
+</body>
+</html>
