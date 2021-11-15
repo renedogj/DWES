@@ -1,9 +1,9 @@
 <?php
 $combinacionGanadora = array();
-
 for($i = 0 ;$i < 6; $i++){
 	$combinacionGanadora[$i] = obtenerNumValido($combinacionGanadora);
 }
+
 define("combinacionGanadora", $combinacionGanadora);
 define("complementario", obtenerNumValido($combinacionGanadora));
 define("reintegro", rand(1,9));
@@ -58,5 +58,23 @@ function mostrarNumGanadoresCategoria($acertantes){
 	foreach($acertantes as $categoria){
 		echo "<li>" . $categoria["texto"] . $categoria["numJugadores"];
 	}
+}
+
+//Metodo para guardar los resultados del sorteo en un archivo con la fecha
+function guardarSorteo($categorias,$fecha){
+	$arrayFecha = explode("-",$fecha);
+	$pathSorteo = "sorteos/premiosorteo_".$arrayFecha[2].$arrayFecha[1].$arrayFecha[0].".txt";
+	$file = fopen($pathSorteo,"w");
+	foreach($categorias as $id => $categoria){
+		if($id == "c"){
+			$linea = "C5+#premio a percibir cada acertante 5 aciertos + complementario: " . $categoria["premioJugador"] . "\n";	
+		}else if($id == "r"){
+			$linea = "CR # premio a percibir por cada acertante reintegro:" . $categoria["premioJugador"] . "\n";
+		}else{
+			$linea = "CR" . $id . " # premio a percibir cada acertante " . $id . " aciertos: " .$categoria["premioJugador"] . "\n";
+		}
+		fwrite($file, $linea);
+	}
+	fclose($file);
 }
 ?>

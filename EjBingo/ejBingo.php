@@ -22,7 +22,7 @@
 		}
 	}
 
-	echo "<div class='bolas'>";
+		echo "<div class='bolas'>";
 	//Bucle que mientras no haya bingo saque vola y compruebe los cartones
 	while(!$bingo){
 		sacarBola();

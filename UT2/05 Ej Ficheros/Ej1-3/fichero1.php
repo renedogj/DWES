@@ -25,20 +25,22 @@
 		<input type="reset" value="Borrar">
 	</form>
 	<?php
-	foreach($_POST as $name => $value){
-		$$name = $value;
+		if ($_SERVER["REQUEST_METHOD"] == "POST"){
+		foreach($_POST as $name => $value){
+			$$name = $value;
+		}
+
+		$nombre = str_pad($nombre,40);
+		$apellido1 = str_pad($apellido1,40);
+		$apellido2 = str_pad($apellido2,40);
+		$fecha = str_pad($fecha,10);
+		$localidad = str_pad($localidad,27);
+
+		$linea = $nombre . $apellido1 . $apellido2 . $fecha . $localidad;
+		$file = fopen("alumnos1.txt","a");
+		fwrite($file, $linea);
+		fclose($file);
 	}
-
-	$nombre = str_pad($nombre,40);
-	$apellido1 = str_pad($apellido1,40);
-	$apellido2 = str_pad($apellido2,40);
-	$fecha = str_pad($fecha,10);
-	$localidad = str_pad($localidad,27);
-
-	$linea = $nombre . $apellido1 . $apellido2 . $fecha . $localidad;
-	$file = fopen("alumnos1.txt","a");
-	fwrite($file, $linea);
-	fclose($file);
 	?>
 </body>
 </html>

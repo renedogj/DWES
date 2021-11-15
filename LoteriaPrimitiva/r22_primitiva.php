@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+﻿﻿<!DOCTYPE HTML>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -14,23 +14,26 @@
 
 			<?php
 			if ($_SERVER["REQUEST_METHOD"] == "POST"){
-				//if(isset($_POST['fechasorteo'])){
-					$fechasorteo = $_POST['fechasorteo'];
-				//}
-				echo "LOTERIA PRIMITIVA DE ESPAÑA" . $fechasorteo . "<br><br>";
-				//if(isset($_POST['recaudacion'])){
-					$recaudacion = $_POST['recaudacion'];
-					echo "Recaudacion: " . $recaudacion . "<br><br>";
-				//}
+				$fecha = $_POST['fechasorteo'];
+				echo "LOTERIA PRIMITIVA DE ESPAÑA " . $fecha . "<br><br>";
+				$recaudacion = $_POST['recaudacion'];
+				echo "Recaudacion: " . $recaudacion . "<br><br>";
 				include("funciones.php");
 
 				$pathPrimitiva = "r22_primitiva.txt";
+				$porcentajesPremios = [0=>0,1=>0,2=>0,3=>5,4=>8,5=>15,6=>40,"c"=>30,"r"=>2];
 
-				for ($i=0; $i <= 6; $i++) { 
-					$acertantes[$i]["texto"] = "Acertantes " . $i . " números: ";
+				foreach($porcentajesPremios as $id => $porcentajePremio){
+					if($id == "c"){
+						$texto = "Acertantes 5 números + complementario: ";
+					}else if($id == "r"){
+						$texto = "Acertantes reintegro: ";
+					}else{
+						$texto = "Acertantes " . $id . " números: ";
+					}
+					$acertantes[$id]["texto"] = $texto;
+					$acertantes[$id]["porcentajePremio"] = $porcentajePremio;
 				}
-				$acertantes["c"]["texto"] = "Acertantes 5 números + complementario: ";
-				$acertantes["r"]["texto"] = "Acertantes reintegro: ";
 
 				if(file_exists($pathPrimitiva)){
 					$filePrimitiva = file($pathPrimitiva);
@@ -49,19 +52,23 @@
 							}
 						}
 					}
-					foreach($acertantes as $indice => $categoria){
+					foreach($acertantes as $id => $categoria){
 						if(array_key_exists("jugadores",$categoria)){
-							$acertantes[$indice]["numJugadores"] = count($categoria["jugadores"]);
+							$acertantes[$id]["numJugadores"] = count($categoria["jugadores"]);
+							$premio = ($recaudacion*$acertantes[$id]["porcentajePremio"])/100;
+							$acertantes[$id]["premioJugador"] = $premio/$acertantes[$id]["numJugadores"];
 						}else{
-							$acertantes[$indice]["numJugadores"] = 0;
+							$acertantes[$id]["numJugadores"] = 0;
+							$acertantes[$id]["premioJugador"] = 0;
 						}	
 					}
 					mostrarCombinacionGanadora();
 					mostrarNumGanadoresCategoria($acertantes);
+					guardarSorteo($acertantes,$fecha);
 				}else{
 					echo "No existe el archivo";
 				}
 			}	
 			?>
-		</body>
-		</html>
+</body>
+</html>
