@@ -21,12 +21,11 @@
 				include("funciones.php");
 
 				$pathPrimitiva = "r22_primitiva.txt";
-				$porcentajesPremios = [0=>0,1=>0,2=>0,3=>5,4=>8,5=>15,6=>40,"c"=>30,"r"=>2];
-
+				$porcentajesPremios = array(0=>0,1=>0,2=>0,3=>5,4=>8,5=>15,6=>40,"c"=>30,"r"=>2);
+				
 				foreach($porcentajesPremios as $id => $porcentajePremio){
-					if($id == "c"){
-						$texto = "Acertantes 5 números + complementario: ";
-					}else if($id == "r"){
+					if((String) $id == "c"){						$texto = "Acertantes 5 números + complementario: ";
+					}else if((String) $id == "r"){
 						$texto = "Acertantes reintegro: ";
 					}else{
 						$texto = "Acertantes " . $id . " números: ";

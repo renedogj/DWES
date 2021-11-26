@@ -28,9 +28,9 @@
 				$pathPrimitiva = "r22_primitiva.txt";
 
 				foreach(categoria::porcentajesPremios as $id => $porcentajePremio){
-					if($id == "c"){
+					if((String) $id == "c"){
 						$texto = "Acertantes 5 números + complementario: ";
-					}else if($id == "r"){
+					}else if((String) $id == "r"){
 						$texto = "Acertantes reintegro: ";
 					}else{
 						$texto = "Acertantes " . $id . " números: ";
