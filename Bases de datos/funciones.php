@@ -30,19 +30,4 @@ function formularioEnviado(){
 function limpiar($string){
 	return trim(addslashes($string));
 }
-
-function mostrarDesplegableCategorias($con){
-	$sql="SELECT nombre_d from departamento";
-
-	$stmt = $con->prepare($sql);
-	$stmt->execute();
-	$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-	echo "<select name='departamento' id='departamento' required>";
-	foreach($stmt->fetchAll() as $row) {
-		$departamento = $row['nombre_d'];
-		echo "<option value='$departamento'>$departamento</option>";
-	}
-	echo "</select>";	
-}
 ?>

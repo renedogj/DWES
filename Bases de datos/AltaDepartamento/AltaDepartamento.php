@@ -12,7 +12,8 @@
 				<th>Alta departamento</th>
 			<tr>
 			<tr>
-				<td><input type="text" name="departamento"></td>
+				<td for="nombre">Nombre departamento</td>
+				<td><input type="text" name="nombre"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="Alta"></td>
@@ -20,11 +21,13 @@
 		</table>
 	</form>
 	<?php
-	include("funcionesAltaDepartamento.php");
+	include("../funciones.php");
+	include("../departamento.php");
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
-		$departamento = $_POST['departamento'];
+		$nombre = $_POST['nombre'];
 		$con = crearConexion();
-		altaDepartamento($con,$departamento);
+		$departamento = departamento::newDepartamento($con,$nombre);
+		$departamento->darDeAlta($con);
 		$con = null;
 	}
 	?>
