@@ -4,8 +4,17 @@ class Departamento{
 	public $nombre;
 
 	function __construct($cod,$nombre){
-		$this->cod = limpiar($cod);
-		$this->nombre = limpiar($nombre);
+		$this->cod = $cod;
+		$this->nombre = $nombre;
+	}
+
+	public static function arrayDeptos($arrayDeptos){
+		$departamentos = array();
+		foreach($arrayDeptos as $dpto){
+			$departamento = new Departamento($dpto["cod_dpto"],$dpto["nombre_dpto"]);
+			array_push($departamentos, $departamento);
+		}
+		return $departamentos;
 	}
 
 	public static function newDepartamento($con,$nombre){
@@ -34,7 +43,7 @@ class Departamento{
 		$stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-		foreach(new RowDepartamento(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+		foreach(new RowDepto(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
 			$lastId = (Int) substr($v,1,3);
 			$lastId++;
 			while(strlen($lastId) != 3){
@@ -45,21 +54,23 @@ class Departamento{
 	}
 
 	public static function mostrarDesplegableDepartamento($con){
-		$sql="SELECT nombre_dpto from departamentos";
+		$sql="SELECT cod_dpto,nombre_dpto from departamentos";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
+		
 		echo "<select name='departamento' id='departamento' required>";
-		foreach(new RowDepartamento(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$nombre) {
-			echo "<option value='$nombre'>$nombre</option>";
+		$arrayDeptos = new RecursiveArrayIterator($stmt->fetchAll());
+		$departamentos = self::arrayDeptos($arrayDeptos);
+		foreach($departamentos as $dpto) {
+			echo "<option value='$dpto->cod'>$dpto->nombre</option>";
 		}
 		echo "</select>";	
 	}
 }
 
-class RowDepartamento extends RecursiveIteratorIterator{
+class RowDepto extends RecursiveIteratorIterator{
 	function __construct($it) {
 		parent::__construct($it, self::LEAVES_ONLY);
 	}

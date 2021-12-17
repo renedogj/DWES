@@ -37,10 +37,10 @@
 				<td>Salario</td>
 				<td><input type="text" name="salario"></td>
 			</tr>
-			<!--<tr>
+			<tr>
 				<td>Departamento</td>
-				<td><?php //Departamento::mostrarDesplegableDepartamento($con); ?></td>
-			</tr>-->
+				<td><?php Departamento::mostrarDesplegableDepartamento($con); ?></td>
+			</tr>
 		</table>
 		<br>
 		<input type="submit" value="Crear nuevo empleado">		
@@ -52,7 +52,7 @@
 			}
 
 			$empleado = new Empleado($dni,$nombre,$apellido,$fecha_nac,$salario);
-			$empleado->darDeAlta($con);
+			$empleado->darDeAlta($con,$departamento);
 			$con = null;
 		}
 	?>
