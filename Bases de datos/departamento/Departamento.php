@@ -42,9 +42,10 @@ class Departamento{
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$arrayResultado = $stmt->fetchAll();
 
-		foreach(new RowDepto(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
-			$lastId = (Int) substr($v,1,3);
+		if(count($arrayResultado) == 1){
+			$lastId = (Int) substr($arrayResultado[0]["max(cod_dpto)"],1,3);
 			$lastId++;
 			while(strlen($lastId) != 3){
 				$lastId = "0" . $lastId;
@@ -67,16 +68,6 @@ class Departamento{
 			echo "<option value='$dpto->cod'>$dpto->nombre</option>";
 		}
 		echo "</select>";	
-	}
-}
-
-class RowDepto extends RecursiveIteratorIterator{
-	function __construct($it) {
-		parent::__construct($it, self::LEAVES_ONLY);
-	}
-
-	function current() {
-		return parent::current();
 	}
 }
 ?>

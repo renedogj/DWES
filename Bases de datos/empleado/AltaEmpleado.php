@@ -7,9 +7,9 @@
 </head>
 <body>
 	<?php
+		include("../departamento/Departamento.php");
+		include("Empleado.php");
 		include("../funciones.php");
-		include("../departamento.php");
-		include("../empleado.php");
 		$con = crearConexion();
 	?>
 	<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

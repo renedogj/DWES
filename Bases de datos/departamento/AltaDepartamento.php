@@ -21,8 +21,9 @@
 		</table>
 	</form>
 	<?php
+	include("Departamento.php");
 	include("../funciones.php");
-	include("../departamento.php");
+	
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$nombre = $_POST['nombre'];
 		$con = crearConexion();
