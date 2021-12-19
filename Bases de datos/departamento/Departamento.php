@@ -11,7 +11,7 @@ class Departamento{
 	public static function arrayDeptos($arrayDeptos){
 		$departamentos = array();
 		foreach($arrayDeptos as $dpto){
-			$departamento = new Departamento($dpto["cod_dpto"],$dpto["nombre_dpto"]);
+			$departamento = new Departamento($dpto["cod_dept"],$dpto["nombre_dpto"]);
 			array_push($departamentos, $departamento);
 		}
 		return $departamentos;
@@ -25,7 +25,7 @@ class Departamento{
 	public function darDeAlta($con){
 		if($this->nombre != null && $this->nombre != "" && $this->cod != "" && $this->cod != null){
 			try {
-				$sql = "INSERT INTO departamentos (cod_dpto,nombre_dpto) VALUES ('$this->cod','$this->nombre')";
+				$sql = "INSERT INTO departamentos (cod_dept,nombre_dpto) VALUES ('$this->cod','$this->nombre')";
 
 				if ($con->exec($sql)) {
 					echo "Nuevo departamento creado";
@@ -37,7 +37,7 @@ class Departamento{
 	}
 	
 	public static function obtenerNuevoCod($con){
-		$sql="SELECT max(cod_dpto) from departamentos";
+		$sql="SELECT max(cod_dept) from departamentos";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
@@ -45,7 +45,7 @@ class Departamento{
 		$arrayResultado = $stmt->fetchAll();
 
 		if(count($arrayResultado) == 1){
-			$lastId = (Int) substr($arrayResultado[0]["max(cod_dpto)"],1,3);
+			$lastId = (Int) substr($arrayResultado[0]["max(cod_dept)"],1,3);
 			$lastId++;
 			while(strlen($lastId) != 3){
 				$lastId = "0" . $lastId;
@@ -55,7 +55,7 @@ class Departamento{
 	}
 
 	public static function mostrarDesplegableDepartamento($con){
-		$sql="SELECT cod_dpto,nombre_dpto from departamentos";
+		$sql="SELECT cod_dept,nombre_dpto from departamentos";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
