@@ -96,6 +96,44 @@ class Empleado{
 		}
 	}
 
+	public static function getHistorialDept($con){
+		$sql = "SELECT cod_dept,fecha_ini,fecha_fin from emple_depart where dni = '54537052G' order by fecha_ini desc;";
+
+		$stmt = $con->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+		$arrayDeptos = new RecursiveArrayIterator($stmt->fetchAll());
+		echo "<table>";
+		foreach($arrayDeptos as $depto){
+			echo "<td>";
+			foreach($depto as $i){
+				echo "<td>$i</td>";
+			}
+			echo "</tr>";
+		}
+		echo "</table>";
+	}
+
+	public static function mostrarDesplegableEmpleados($con){
+		$sql="SELECT dni, nombre, apellidos from empleados";
+
+		$stmt = $con->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		
+		
+		$arrayEmple = new RecursiveArrayIterator($stmt->fetchAll());
+		echo "<select name='empleado' id='empleado' required>";
+		foreach($arrayEmple as $empleado){
+			foreach($empleado as $a => $i){
+				$$a = $i;
+			}
+			echo "<option value='$dni'>$nombre $apellidos</option>";
+		}
+		echo "</select>";
+	}
+
 	public static function mostrarEmpleados($arrayEmple){
 		echo "<table>";
 		echo "<tr>
