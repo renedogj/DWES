@@ -44,6 +44,16 @@ class Empleado{
 		}
 	}
 
+	function actualizarEmple($con){
+		$sql = "UPDATE empleados set nombre='$this->nombre', apellidos='$this->apellidos', fecha_nac='$this->fecha_nac', salario='$this->salario' where dni = '$this->dni'";
+		try {
+			$result = $con->exec($sql);
+		}catch(PDOException $e) {
+			echo $sql . "<br>" . $e->getMessage();
+			return -1;
+		}
+	}
+
 	function cambiarDepartamento($con,$newDepartamento){
 		$fecha = date("Y-m-d H:i:s");
 		$sql = "UPDATE emple_depart set fecha_fin = '$fecha' where dni = '$this->dni' and cod_dept = '$this->cod_dept' and fecha_fin is null;";
@@ -132,6 +142,11 @@ class Empleado{
 			echo "<option value='$dni'>$nombre $apellidos</option>";
 		}
 		echo "</select>";
+	}
+
+	function modificarSueldo($con,$porcentaje){
+		$this->salario += ($this->salario*$porcentaje)/100;
+		self::actualizarEmple($con);
 	}
 
 	public static function mostrarEmpleados($arrayEmple){
