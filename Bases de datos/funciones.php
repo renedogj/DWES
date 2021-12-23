@@ -32,7 +32,7 @@ function limpiar($string){
 }
 
 function empleDeptFecha($con,$fecha){
-	$sql = "select empleados.dni,nombre,apellidos,emple_depart.cod_dept,nombre_dpto from empleados,emple_depart,departamentos where empleados.dni = emple_depart.dni and emple_depart.cod_dept = departamentos.cod_dept and fecha_ini >= '$fecha' and (fecha_fin <= '$fecha' or fecha_fin is null);";
+	$sql = "select empleados.dni,nombre,apellidos,emple_depart.cod_dept,nombre_dpto from empleados,emple_depart,departamentos where empleados.dni = emple_depart.dni and emple_depart.cod_dept = departamentos.cod_dept and fecha_ini <= '$fecha' and (fecha_fin >= '$fecha' or fecha_fin is null);";
 
 	$stmt = $con->prepare($sql);
 	$stmt->execute();
@@ -40,9 +40,16 @@ function empleDeptFecha($con,$fecha){
 	if($result){
 		$arrayRows = new RecursiveArrayIterator($stmt->fetchAll());
 		if(count($arrayRows) > 0){
-			echo "<table>";
+			echo "<table>
+			<tr>
+				<th>DNI</th>
+				<th>Nombre</th>
+				<th>Apellidos</th>
+				<th>Cod_dept</th>
+				<th>Departameto</th>
+			</tr>";
 			foreach($arrayRows as $row){
-				echo "<td>";
+				echo "<tr>";
 				foreach($row as $i){
 					echo "<td>$i</td>";
 				}
