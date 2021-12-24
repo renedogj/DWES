@@ -7,7 +7,7 @@
 </head>
 <body>
 	<?php
-		include("../departamento/Departamento.php");
+		include("../Departamento/Departamento.php");
 		include("Empleado.php");
 		include("../funciones.php");
 		$con = crearConexion();

@@ -3,7 +3,7 @@
 	<h2>Lista de empleados por departamento</h2>
 	<?php
 	include("Departamento.php");
-	include("../empleado/Empleado.php");
+	include("../Empleado/Empleado.php");
 	include("../funciones.php");
 	$con = crearConexion();
 	?>

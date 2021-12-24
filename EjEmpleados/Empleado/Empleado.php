@@ -47,10 +47,11 @@ class Empleado{
 	function actualizarEmple($con){
 		$sql = "UPDATE empleados set nombre='$this->nombre', apellidos='$this->apellidos', fecha_nac='$this->fecha_nac', salario='$this->salario' where dni = '$this->dni'";
 		try {
-			$result = $con->exec($sql);
+			if($con->exec($sql)){
+				echo "Empleado actualizado con exito";
+			}
 		}catch(PDOException $e) {
 			echo $sql . "<br>" . $e->getMessage();
-			return -1;
 		}
 	}
 
