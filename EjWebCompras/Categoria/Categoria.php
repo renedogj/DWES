@@ -13,6 +13,14 @@ class Categoria{
 		return new Categoria($cod,$nombre);
 	}
 
+	public static function arrayCategorias($arrayCategorias){
+		$Categorias = array();
+		foreach($arrayCategorias as $cate){
+			$categoria = new Categoria($cate["id"],$cate["nombre"]);
+			array_push($Categorias, $categoria);
+		}
+		return $Categorias;
+	}
 
 	public function darDeAlta($con){
 		if($this->nombre != null && $this->nombre != "" && $this->id != "" && $this->id != null){
@@ -44,6 +52,22 @@ class Categoria{
 			}
 			return "C" . $lastId;
 		}
+	}
+	
+	public static function mostrarDesplegableCategorias($con){
+		$sql="SELECT id,nombre from categorias";
+
+		$stmt = $con->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		
+		echo "<select name='categoria' id='categoria' required>";
+		$arrayCategorias = new RecursiveArrayIterator($stmt->fetchAll());
+		$Categorias = self::arrayCategorias($arrayCategorias);
+		foreach($Categorias as $categoria) {
+			echo "<option value='$categoria->id'>$categoria->nombre</option>";
+		}
+		echo "</select>";	
 	}
 
 	public function __toString(){
