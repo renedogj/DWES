@@ -9,7 +9,7 @@ class Categoria{
 	}
 
 	public static function newCategoria($con,$nombre){
-		$cod = self::obtenerNuevoCod($con);
+		$cod = self::obtenerNuevoId($con);
 		return new Categoria($cod,$nombre);
 	}
 
@@ -36,7 +36,7 @@ class Categoria{
 		}
 	}
 
-	public static function obtenerNuevoCod($con){
+	public static function obtenerNuevoId($con){
 		$sql="SELECT max(id) as max from categorias";
 
 		$stmt = $con->prepare($sql);

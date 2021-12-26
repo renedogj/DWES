@@ -13,7 +13,7 @@ class Producto{
 	}
 
 	public static function newProducto($con,$nombre,$precio,$categoria){
-		$cod = self::obtenerNuevoCod($con);
+		$cod = self::obtenerNuevoId($con);
 		return new Producto($cod,$nombre,$precio,$categoria);
 	}
 
@@ -31,7 +31,7 @@ class Producto{
 		
 	}
 
-	public static function obtenerNuevoCod($con){
+	public static function obtenerNuevoId($con){
 		$sql="SELECT max(id) as max from productos";
 
 		$stmt = $con->prepare($sql);
