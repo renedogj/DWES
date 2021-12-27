@@ -25,7 +25,7 @@
 	include("../funciones.php");
 	
 	if (formularioEnviado()){
-		$localidad = $_POST['localidad'];
+		$localidad = limpiar($_POST['localidad']);
 		$con = crearConexion();
 		$almacen = Almacen::newAlmacen($con,$localidad);
 		$almacen->darDeAlta($con);

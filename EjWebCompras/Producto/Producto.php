@@ -17,10 +17,18 @@ class Producto{
 		return new Producto($cod,$nombre,$precio,$categoria);
 	}
 
+	public static function arrayProductos($arrayProductos){
+		$productos = array();
+		foreach($arrayProductos as $producto){
+			$producto = new Producto($producto["id"],$producto["nombre"],$producto["precio"],$producto["id_categoria"]);
+			array_push($productos, $producto);
+		}
+		return $productos;
+	}
 
 	public function darDeAlta($con){
 		try {
-			$sql = "INSERT INTO productos (id,nombre,precio,id_categoria) VALUES ('$this->id','$this->nombre','$this->precio','$this->categoria')";
+			$sql = "INSERT INTO productos (id,nombre,precio,id_productogoria) VALUES ('$this->id','$this->nombre','$this->precio','$this->categoria')";
 
 			if ($con->exec($sql)) {
 				echo "Nuevo producto creado";
@@ -28,7 +36,26 @@ class Producto{
 		} catch(PDOException $e) {
 			echo $sql . "<br>" . $e->getMessage();
 		}
-		
+	}
+
+	public static function aprovisionar($con,$almacen,$producto,$cantidad){
+		try {
+			$sql = "INSERT INTO almacena (num_almacen,id_producto,cantidad) VALUES ('$almacen','$producto','$cantidad')";
+			if ($con->exec($sql)) {
+				echo $cantidad ." unidades del producto " . $producto . " se han añadido al alamacen " . $almacen;
+			}
+		} catch(PDOException $e) {
+			if($e->getCode() == 23000){
+				try {
+					$sql = "UPDATE almacena set cantidad = cantidad + '$cantidad' where num_almacen = '$almacen' and id_producto = '$producto'";
+					if ($con->exec($sql)) {
+						echo $cantidad ." unidades del producto " . $producto . " se han añadido al alamacen " . $almacen;
+					}
+				} catch(PDOException $e) {
+					echo $sql . "<br>" . $e->getMessage();
+				}
+			}
+		}
 	}
 
 	public static function obtenerNuevoId($con){
@@ -49,12 +76,28 @@ class Producto{
 		}
 	}
 
+	public static function mostrarDesplegableProductos($con){
+		$sql="SELECT id,nombre,precio,id_categoria from productos";
+
+		$stmt = $con->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		
+		echo "<select name='producto' id='producto' required>";
+		$arrayProductos = new RecursiveArrayIterator($stmt->fetchAll());
+		$productos = self::arrayProductos($arrayProductos);
+		foreach($productos as $producto) {
+			echo "<option value='$producto->id'>$producto->nombre</option>";
+		}
+		echo "</select>";	
+	}
+
 	public function __toString(){
 		return "<br>Producto:" .
-			"<br>id: " . $this->id .
-			"<br> nombre: " . $this->nombre .
-			"<br>precio: " . $this->precio .
-			"<br>categoria: " . $this->categoria;
+		"<br>id: " . $this->id .
+		"<br> nombre: " . $this->nombre .
+		"<br>precio: " . $this->precio .
+		"<br>categoria: " . $this->categoria;
 	}
 }
 ?>

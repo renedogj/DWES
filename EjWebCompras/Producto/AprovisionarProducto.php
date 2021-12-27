@@ -8,7 +8,7 @@
 <body>
 	<?php
 	include("Producto.php");
-	include("../Categoria/Categoria.php");
+	include("../Almacen/Almacen.php");
 	include("../funciones.php");
 	$con = crearConexion();
 	?>
@@ -18,19 +18,19 @@
 				<th>Alta Producto</th>
 			<tr>
 			<tr>
-				<td for="nombre">Nombre producto</td>
-				<td><input type="text" name="nombre"></td>
+				<td for="producto">Producto</td>
+				<td><?php Producto::mostrarDesplegableProductos($con); ?></td>
 			</tr>
 			<tr>
-				<td for="precio">Precio producto</td>
-				<td><input type="text" name="precio"></td>
+				<td for="almacen">Almacen</td>
+				<td><?php Almacen::mostrarDesplegableAlmacenes($con); ?></td>
 			</tr>
 			<tr>
-				<td for="nombre">Categoria producto</td>
-				<td><?php Categoria::mostrarDesplegableCategorias($con); ?></td>
+				<td for="cantidad">Cantidad</td>
+				<td><input type="number" name="cantidad" id="cantidad" /td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Dar de alta"></td>
+				<td><input type="submit" value="Aprovisionar"></td>
 			</tr>
 		</table>
 	</form>
@@ -39,9 +39,7 @@
 		foreach($_POST as $id => $input){
 			$$id = limpiar($input);
 		}
-		$producto = Producto::newProducto($con,$nombre,$precio,$categoria);
-		$producto->darDeAlta($con);
-		echo $producto;
+		Producto::aprovisionar($con,$almacen,$producto,$cantidad);
 	}
 	$con = null;
 	?>

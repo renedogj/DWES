@@ -25,7 +25,7 @@
 	include("../funciones.php");
 	
 	if (formularioEnviado()){
-		$nombre = $_POST['nombre'];
+		$nombre = limpiar($_POST['nombre']);
 		$con = crearConexion();
 		$categoria = Categoria::newCategoria($con,$nombre);
 		$categoria->darDeAlta($con);
