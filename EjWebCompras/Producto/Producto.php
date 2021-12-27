@@ -66,7 +66,6 @@ class Producto{
 				<td>" . $cantidadTotal . "</td>
 			</tr>";
 		echo "</table>";
-
 	}
 
 	public static function aprovisionar($con,$almacen,$producto,$cantidad){
