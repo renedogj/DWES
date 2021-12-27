@@ -38,6 +38,37 @@ class Producto{
 		}
 	}
 
+	public function mostrarStock($con){
+		$sql = "SELECT num_almacen,cantidad from almacena where id_producto='$this->id'";
+
+		$stmt = $con->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		
+		$arrayStock = new RecursiveArrayIterator($stmt->fetchAll());
+		$cantidadTotal = 0;
+		echo "<table>";
+		echo "<tr>
+				<th>Producto</th>
+				<th>Almacen</th>
+				<th>Cantidad</th>
+			</tr>";
+		foreach($arrayStock as $stock) {
+			$cantidadTotal += $stock["cantidad"];
+			echo "<tr>
+					<td>" . $this->id . "</td>
+					<td>" . $stock["num_almacen"] . "</td>
+					<td>" . $stock["cantidad"] . "</td>
+				</tr>";
+		}
+		echo "<tr>
+				<td colspan ='2'>Cantidad total</td>
+				<td>" . $cantidadTotal . "</td>
+			</tr>";
+		echo "</table>";
+
+	}
+
 	public static function aprovisionar($con,$almacen,$producto,$cantidad){
 		try {
 			$sql = "INSERT INTO almacena (num_almacen,id_producto,cantidad) VALUES ('$almacen','$producto','$cantidad')";
