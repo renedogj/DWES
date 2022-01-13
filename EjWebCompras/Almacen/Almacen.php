@@ -26,7 +26,7 @@ class Almacen{
 	public function darDeAlta($con){
 		if($this->localidad != null && $this->localidad != "" && $this->num != "" && $this->num != null){
 			try {
-				$sql = "INSERT INTO Almacenes (num,localidad) VALUES ('$this->num','$this->localidad')";
+				$sql = "INSERT INTO almacenes (num,localidad) VALUES ('$this->num','$this->localidad')";
 
 				if ($con->exec($sql)) {
 					echo "Nueva almacen creada";
@@ -65,7 +65,7 @@ class Almacen{
 	}
 
 	public static function obtenerNuevoNum($con){
-		$sql="SELECT max(num) as max from Almacenes";
+		$sql="SELECT max(num) as max from almacenes";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
@@ -78,7 +78,7 @@ class Almacen{
 	}
 	
 	public static function mostrarDesplegableAlmacenes($con){
-		$sql="SELECT num,localidad from Almacenes";
+		$sql="SELECT num,localidad from almacenes";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();

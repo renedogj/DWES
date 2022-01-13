@@ -28,7 +28,7 @@ class Producto{
 
 	public function darDeAlta($con){
 		try {
-			$sql = "INSERT INTO productos (id,nombre,precio,id_productogoria) VALUES ('$this->id','$this->nombre','$this->precio','$this->categoria')";
+			$sql = "INSERT INTO productos (id,nombre,precio,id_categoria) VALUES ('$this->id','$this->nombre','$this->precio','$this->categoria')";
 
 			if ($con->exec($sql)) {
 				echo "Nuevo producto creado";
