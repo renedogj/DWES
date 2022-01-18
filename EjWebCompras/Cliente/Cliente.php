@@ -45,5 +45,23 @@ class Cliente{
 		}
 		return false;
 	}
+
+	public static function comprobarCredenciales($con,$nif,$password){
+		$password = md5($password);
+		$sql = "SELECT * FROM clientes where nif='$nif' and password='$password'";
+
+		$stmt = $con->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$arrayCliente = new RecursiveArrayIterator($stmt->fetchAll());
+
+		if(count($arrayCliente) == 1){
+			$aux = $arrayCliente[0];
+			$cliente = new Cliente($nif,$aux['nombre'],$aux['apellido'],$aux['cp'],$aux['direccion'],$aux['ciudad']);
+			return $cliente;
+		}else{
+			return null;
+		}
+	}
 }
 ?>
