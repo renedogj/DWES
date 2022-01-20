@@ -30,4 +30,15 @@ function formularioEnviado(){
 function limpiar($string){
 	return trim(addslashes($string));
 }
+
+function redirecionarALogin(){
+	header('Location: ' . "http://192.168.206.230/Desarrollo%20entorno%20servidor/EjWebCompras/login.php");
+	die();
+}
+
+function cerrarSesion(){
+	session_unset();
+	session_destroy();
+	redirecionarALogin();
+}
 ?>

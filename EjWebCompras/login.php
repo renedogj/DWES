@@ -1,5 +1,12 @@
 <?php
 session_start();
+$redireccion = "menu.php";
+if(isset($_SESSION['nif'])){
+	header('Location: '.$redireccion);
+	die();
+}
+include("Cliente/Cliente.php");
+include("funciones.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,15 +17,6 @@ session_start();
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
-	<?php
-	$redireccion = "menu.php";
-	if(isset($_SESSION['nif'])){
-		header('Location: '.$redireccion);
-		die();
-	}
-	include("Cliente/Cliente.php");
-	include("funciones.php");
-	?>
 	<div class="contenedora">
 		<div class="iniciosesion">
 			<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" class="form-inicio-sesion">

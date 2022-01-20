@@ -4,6 +4,7 @@ class Producto{
 	public $nombre;
 	public $precio;
 	public $categoria;
+	public $stockTotal;
 
 	public function __construct($id,$nombre,$precio,$categoria){
 		$this->id = $id;
@@ -68,6 +69,18 @@ class Producto{
 		echo "</table>";
 	}
 
+	public function obtenerStockTotal($con){
+		$sql = "SELECT sum(cantidad) from almacena where id_producto= '$this->id'";
+
+		$stmt = $con->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		
+		$arrayStock = new RecursiveArrayIterator($stmt->fetchAll());
+
+		$this->stockTotal = $arrayStock[0]["sum(cantidad)"];
+	}
+
 	public static function aprovisionar($con,$almacen,$producto,$cantidad){
 		try {
 			$sql = "INSERT INTO almacena (num_almacen,id_producto,cantidad) VALUES ('$almacen','$producto','$cantidad')";
@@ -106,8 +119,21 @@ class Producto{
 		}
 	}
 
+	public static function obtenerProductos($con){
+		$sql = "SELECT * from productos";
+
+		$stmt = $con->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+		$arrayProductos = new RecursiveArrayIterator($stmt->fetchAll());
+		$productos = self::arrayProductos($arrayProductos);
+
+		return $productos;
+	}
+
 	public static function mostrarDesplegableProductos($con){
-		$sql="SELECT id,nombre,precio,id_categoria from productos";
+		$sql="SELECT * from productos";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
