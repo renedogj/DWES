@@ -2,8 +2,11 @@
 session_start();
 $redireccion = "menu.php";
 if(isset($_SESSION['nif'])){
-	header('Location: '.$redireccion);
-	die();
+	$nif = $_SESSION['nif'];
+	//header('Location: '.$redireccion);
+	//die();
+}else{
+	$nif = "";
 }
 include("Cliente/Cliente.php");
 include("funciones.php");
@@ -23,7 +26,7 @@ include("funciones.php");
 				<h1>Iniciar Sesion</h1>
 				<div class="div-contenedora-labelinput">
 					<label for="nif">Nif de usuario:</label>
-					<input type="text" name="nif" maxlength="45" size="30">
+					<input type="text" name="nif" maxlength="45" size="30" value="<?php echo $nif; ?>">
 				</div>
 				<div class="div-contenedora-labelinput">
 					<label for="password">Contraseña:</label>

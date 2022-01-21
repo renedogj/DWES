@@ -47,19 +47,18 @@ include("Producto.php");
 		<?php Producto::mostrarDesplegableProductos($con); ?>
 		<input type="number" name="cantidad">
 		<br><br>
-		<button type="submit" name="addCarrito" value="566168">Añadir al carrito</button>
+		<button type="submit" name="addCarrito">Añadir al carrito</button>
+		<button type="submit" name="deleteCarrito">Vaciar carrito</button>
 		</form>
 	</main>
 	<?php
 	/*if(isset($_POST["addCarrito"])){
 		echo $_POST['addCarrito'];
 	}*/
-
-
 	if(isset($_POST["cerrarSesion"])){
 		cerrarSesion();
 	}else if(isset($_POST["addCarrito"])){
-		//echo $_POST['addCarrito'];
+			//echo $_POST['addCarrito'];
 		if(isset($_POST["cantidad"]) && $_POST['cantidad'] > 0){
 			$cantidad = $_POST["cantidad"];
 			$idProducto = $_POST["producto"];
@@ -75,10 +74,11 @@ include("Producto.php");
 			}else{
 				$_SESSION['carrito'][$idProducto] = (int)$cantidad;
 			}
-			//echo $cantidad .  " " .$idProducto;
 		}
+	}else if(isset($_POST["deleteCarrito"])){
+		unset($_SESSION['carrito']);
+		echo "Carrito vacio";
 	}
-	var_dump($_SESSION['carrito']);
 	?>
 </body>
 </html>
