@@ -39,6 +39,23 @@ class Producto{
 		}
 	}
 
+	public static function obtenerProducto($con,$id){
+		$sql = "SELECT * from productos where id='$id'";
+
+		$stmt = $con->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+		$arrayProductos = new RecursiveArrayIterator($stmt->fetchAll());
+		$productos = self::arrayProductos($arrayProductos);
+
+		if(count($productos) == 1){
+			$productos[0]->obtenerStockTotal($con);
+			return $productos[0];
+		}
+		return null;
+	}
+
 	public function mostrarStock($con){
 		$sql = "SELECT num_almacen,cantidad from almacena where id_producto='$this->id'";
 

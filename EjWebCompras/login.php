@@ -41,6 +41,7 @@ include("funciones.php");
 		$cliente = Cliente::comprobarCredenciales($con,$nif,$password);
 		if($cliente != null){
 			$_SESSION['nif'] = $nif;
+			$_SESSION['carrito'] = array();
 			header('Location: '.$redireccion);
 			die();
 		}else{
