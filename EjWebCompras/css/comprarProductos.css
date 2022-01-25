@@ -13,7 +13,7 @@
 }
 
 .producto p{
-	width: 14%;
+	width: 13%;
 	margin: 0 2.5%;
 }
 
@@ -32,8 +32,12 @@
 	font-style: normal;
 }
 
+.udsCarrito{
+	
+}
+
 .producto button{
-	width: 15%;
+	width: 19%;
 	margin: 0 3% 0 10%;
 	font-size: 14px;
 }

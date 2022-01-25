@@ -12,7 +12,6 @@ include("Producto.php");
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="refresh" content ="1000">
 	<title>Comprar Productos</title>
 	<link rel="stylesheet" type="text/css" href="../css/menu.css">
 	<link rel="stylesheet" type="text/css" href="../css/comprarProductos.css">
@@ -24,6 +23,7 @@ include("Producto.php");
 		</form>
 	</header>
 	<main>
+		<a href="../Cliente/Carrito.php">Ver carrito</a>
 		<!--<form action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 		<div class="productos">
 			
