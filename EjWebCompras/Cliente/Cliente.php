@@ -48,7 +48,7 @@ class Cliente{
 
 	public static function comprobarCredenciales($con,$nif,$password){
 		$password = md5($password);
-		$sql = "SELECT * FROM cliente where nif='$nif' and password='$password'";
+		$sql = "SELECT nombre,apellido,cp,direccion,ciudad FROM cliente where nif='$nif' and clave='$password'";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
