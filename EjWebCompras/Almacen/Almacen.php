@@ -15,8 +15,8 @@ class Almacen{
 
 	public static function arrayAlmacenes($arrayAlmacenes){
 		$almacenes = array();
-		foreach($arrayAlmacenes as $cate){
-			$almacen = new Almacen($cate["num"],$cate["localidad"]);
+		foreach($arrayAlmacenes as $almacen){
+			$almacen = new Almacen($almacen["num_almacen"],$almacen["localidad"]);
 			array_push($almacenes, $almacen);
 		}
 		return $almacenes;
@@ -26,7 +26,7 @@ class Almacen{
 	public function darDeAlta($con){
 		if($this->localidad != null && $this->localidad != "" && $this->num != "" && $this->num != null){
 			try {
-				$sql = "INSERT INTO almacenes (num,localidad) VALUES ('$this->num','$this->localidad')";
+				$sql = "INSERT INTO almacen (num_almacen,localidad) VALUES ('$this->num','$this->localidad')";
 
 				if ($con->exec($sql)) {
 					echo "Nueva almacen creada";
@@ -38,7 +38,7 @@ class Almacen{
 	}
 
 	public function mostrarProductos($con){
-		$sql = "SELECT localidad,id,nombre,cantidad from almacena,almacenes,productos where id=id_producto and num_almacen=num and num_almacen ='$this->num'";
+		$sql = "SELECT localidad,id,nombre,cantidad from almacena,almacen,productos where id=id_producto and num_almacen=num_almacen and num_almacen ='$this->num'";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
@@ -65,7 +65,7 @@ class Almacen{
 	}
 
 	public static function obtenerNuevoNum($con){
-		$sql="SELECT max(num) as max from almacenes";
+		$sql="SELECT max(num_almacen) as max from almacen";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
@@ -78,7 +78,7 @@ class Almacen{
 	}
 	
 	public static function mostrarDesplegableAlmacenes($con){
-		$sql="SELECT num,localidad from almacenes";
+		$sql="SELECT num_almacen,localidad from almacen";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();

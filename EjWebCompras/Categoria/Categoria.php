@@ -16,7 +16,7 @@ class Categoria{
 	public static function arrayCategorias($arrayCategorias){
 		$Categorias = array();
 		foreach($arrayCategorias as $cate){
-			$categoria = new Categoria($cate["id"],$cate["nombre"]);
+			$categoria = new Categoria($cate["id_categoria"],$cate["nombre"]);
 			array_push($Categorias, $categoria);
 		}
 		return $Categorias;
@@ -25,7 +25,7 @@ class Categoria{
 	public function darDeAlta($con){
 		if($this->nombre != null && $this->nombre != "" && $this->id != "" && $this->id != null){
 			try {
-				$sql = "INSERT INTO categorias (id,nombre) VALUES ('$this->id','$this->nombre')";
+				$sql = "INSERT INTO categoria (id_categoria,nombre) VALUES ('$this->id','$this->nombre')";
 
 				if ($con->exec($sql)) {
 					echo "Nueva categoria creada";
@@ -37,7 +37,7 @@ class Categoria{
 	}
 
 	public static function obtenerNuevoId($con){
-		$sql="SELECT max(id) as max from categorias";
+		$sql="SELECT max(id_categoria) as max from categoria";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
@@ -55,7 +55,7 @@ class Categoria{
 	}
 	
 	public static function mostrarDesplegableCategorias($con){
-		$sql="SELECT id,nombre from categorias";
+		$sql="SELECT id_categoria,nombre from categoria";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();

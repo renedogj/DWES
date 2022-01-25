@@ -19,7 +19,7 @@ class Cliente{
 	public function darDeAlta($con,$password){
 		$password = md5($password);
 		try {
-			$sql = "INSERT INTO clientes (nif,nombre,apellido,cp,direccion,ciudad,password) VALUES ('$this->nif','$this->nombre','$this->apellido','$this->cp','$this->direccion','$this->ciudad','$password')";
+			$sql = "INSERT INTO cliente (nif,nombre,apellido,cp,direccion,ciudad,clave) VALUES ('$this->nif','$this->nombre','$this->apellido','$this->cp','$this->direccion','$this->ciudad','$password')";
 			return $con->exec($sql);
 		} catch(PDOException $e) {
 			$mensaje = "Error: ";
@@ -48,7 +48,7 @@ class Cliente{
 
 	public static function comprobarCredenciales($con,$nif,$password){
 		$password = md5($password);
-		$sql = "SELECT * FROM clientes where nif='$nif' and password='$password'";
+		$sql = "SELECT * FROM cliente where nif='$nif' and password='$password'";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();

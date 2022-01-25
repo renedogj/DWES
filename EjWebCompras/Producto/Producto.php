@@ -21,7 +21,7 @@ class Producto{
 	public static function arrayProductos($arrayProductos){
 		$productos = array();
 		foreach($arrayProductos as $producto){
-			$producto = new Producto($producto["id"],$producto["nombre"],$producto["precio"],$producto["id_categoria"]);
+			$producto = new Producto($producto["id_producto"],$producto["nombre"],$producto["precio"],$producto["id_categoria"]);
 			array_push($productos, $producto);
 		}
 		return $productos;
@@ -29,7 +29,7 @@ class Producto{
 
 	public function darDeAlta($con){
 		try {
-			$sql = "INSERT INTO productos (id,nombre,precio,id_categoria) VALUES ('$this->id','$this->nombre','$this->precio','$this->categoria')";
+			$sql = "INSERT INTO producto (id_producto,nombre,precio,id_categoria) VALUES ('$this->id','$this->nombre','$this->precio','$this->categoria')";
 
 			if ($con->exec($sql)) {
 				echo "Nuevo producto creado";
@@ -40,7 +40,7 @@ class Producto{
 	}
 
 	public static function obtenerProducto($con,$id){
-		$sql = "SELECT * from productos where id='$id'";
+		$sql = "SELECT * from producto where id_producto='$id'";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
@@ -119,7 +119,7 @@ class Producto{
 	}
 
 	public static function obtenerNuevoId($con){
-		$sql="SELECT max(id) as max from productos";
+		$sql="SELECT max(id_producto) as max from producto";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
@@ -137,7 +137,7 @@ class Producto{
 	}
 
 	public static function obtenerProductos($con){
-		$sql = "SELECT * from productos";
+		$sql = "SELECT * from producto";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
@@ -150,7 +150,7 @@ class Producto{
 	}
 
 	public static function mostrarDesplegableProductos($con){
-		$sql="SELECT * from productos";
+		$sql="SELECT * from producto";
 
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
