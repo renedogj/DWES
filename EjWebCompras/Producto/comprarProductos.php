@@ -24,31 +24,33 @@ include("Producto.php");
 	</header>
 	<main>
 		<a href="../Cliente/Carrito.php">Ver carrito</a>
-		<!--<form action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-		<div class="productos">
-			
-			<?php
-			/*$productos = Producto::obtenerProductos($con);
-			foreach($productos as $producto){
-				$producto->obtenerStockTotal($con);
-				if($producto->stockTotal > 0){
-					echo '<div class="producto" id="'.$producto->id.'">';
-					echo '<h2>'.$producto->nombre.'</h2>';
-					echo '<p class="precio">'.$producto->precio.'€</p>';
-					echo '<p class="stock"><b>'.$producto->stockTotal.'</b> en stock</p>';
-					echo '<button type="submit" name="addCarrito" value="'.$producto->id.'">Añadir al carrito</button>';
-					echo '</div>';
-				}
-			}*/
-			?>
-		</div>
-		</form>-->
+		<!--
+		<form action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+			<div class="productos">
+				
+				<?php
+				/*$productos = Producto::obtenerProductos($con);
+				foreach($productos as $producto){
+					$producto->obtenerStockTotal($con);
+					if($producto->stockTotal > 0){
+						echo '<div class="producto" id="'.$producto->id.'">';
+						echo '<h2>'.$producto->nombre.'</h2>';
+						echo '<p class="precio">'.$producto->precio.'€</p>';
+						echo '<p class="stock"><b>'.$producto->stockTotal.'</b> en stock</p>';
+						echo '<button type="submit" name="addCarrito" value="'.$producto->id.'">Añadir al carrito</button>';
+						echo '</div>';
+					}
+				}*/
+				?>
+			</div>
+		</form>
+		-->
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-		<?php Producto::mostrarDesplegableProductos($con); ?>
-		<input type="number" name="cantidad">
-		<br><br>
-		<button type="submit" name="addCarrito">Añadir al carrito</button>
-		<button type="submit" name="deleteCarrito">Vaciar carrito</button>
+			<?php Producto::mostrarDesplegableProductos($con); ?>
+			<input type="number" name="cantidad">
+			<br><br>
+			<button type="submit" name="addCarrito">Añadir al carrito</button>
+			<button type="submit" name="deleteCarrito">Vaciar carrito</button>
 		</form>
 	</main>
 	<?php
@@ -74,6 +76,7 @@ include("Producto.php");
 			}else{
 				$_SESSION['carrito'][$idProducto] = (int)$cantidad;
 			}
+			echo "Producto " . $idProducto . " añadido a la cesta";
 		}
 	}else if(isset($_POST["deleteCarrito"])){
 		unset($_SESSION['carrito']);

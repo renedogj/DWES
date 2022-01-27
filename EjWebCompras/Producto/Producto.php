@@ -151,14 +151,17 @@ class Producto{
 
 	public static function mostrarDesplegableProductos($con){
 		$sql="SELECT * from producto";
-
+		
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		
-		echo "<select name='producto' id='producto' required>";
+
 		$arrayProductos = new RecursiveArrayIterator($stmt->fetchAll());
+		var_dump($arrayProductos);
 		$productos = self::arrayProductos($arrayProductos);
+		var_dump($productos);
+
+		echo "<select name='producto' id='producto' required>";
 		foreach($productos as $producto) {
 			echo "<option value='$producto->id'>$producto->nombre</option>";
 		}
