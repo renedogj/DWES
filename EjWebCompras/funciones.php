@@ -32,13 +32,15 @@ function limpiar($string){
 }
 
 function redirecionarALogin(){
-	header('Location: ' . "http://192.168.206.230/Desarrollo%20entorno%20servidor/EjWebCompras/login.php");
+	header('Location: ' . "http://localhost/Desarrollo%20entorno%20servidor/EjWebCompras/login.php");
 	die();
 }
 
 function cerrarSesion(){
-	session_unset();
-	session_destroy();
+	//session_unset();
+	//session_destroy();
+	borrarCookie("nif");
+	borrarCookie("carrito");
 	redirecionarALogin();
 }
 
