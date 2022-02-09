@@ -157,9 +157,9 @@ class Producto{
 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
 		$arrayProductos = new RecursiveArrayIterator($stmt->fetchAll());
-		var_dump($arrayProductos);
+		//var_dump($arrayProductos);
 		$productos = self::arrayProductos($arrayProductos);
-		var_dump($productos);
+		//var_dump($productos);
 
 		echo "<select name='producto' id='producto' required>";
 		foreach($productos as $producto) {

@@ -1,7 +1,10 @@
 <?php
-session_start();
-include("../funciones.php");
-if(!isset($_SESSION['nif'])){
+//session_start();
+include("funciones.php");
+/*if(!isset($_SESSION['nif'])){
+	redirecionarALogin();
+}*/
+if(!isset($_COOKIE['nif'])){
 	redirecionarALogin();
 }
 $con = crearConexion();
@@ -17,30 +20,30 @@ include("../Producto/Producto.php");
 </head>
 <body>
 	<?php
-	if(isset($_POST["eliminarCarrito"])){
-		$id = $_POST["eliminarCarrito"];
-		unset($_SESSION["carrito"][$id]);
+	if(isset($_POST["eliminarDeCarrito"])){
+		$id = $_POST["eliminarDeCarrito"];
+		//unset($_SESSION["Carrito.php"][$id]);
+		$carrito = unserialize($_COOKIE["carrito"]);
+		unset($carrito[$id]);
+		setArrayCookie("carrito",$carrito);
 	}
 	?>
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
 		<div class="productos">
 			<?php
-			$carrito = $_SESSION["carrito"];
+			$carrito = unserialize($_COOKIE["carrito"]);
 			foreach($carrito as $id => $cantidad){
 				$producto = Producto::obtenerProducto($con,$id);
 				$producto->obtenerStockTotal($con);
-				//if($producto->stockTotal > 0){
-					echo '<div class="producto" id="'.$id.'">';
-					echo '<h2>'.$producto->nombre.'</h2>';
-					echo '<p class="precio">'.$producto->precio.'€</p>';
-					echo '<p class="udsCarrito stock"><b>'.$cantidad.'</b> uds.</p>';
-					echo '<button type="submit" name="eliminarCarrito" value="'.$id.'">Eliminar del carrito</button>';
-					echo '</div>';
-				//}
+				echo '<div class="producto" id="'.$id.'">';
+				echo '<h2>'.$producto->nombre.'</h2>';
+				echo '<p class="precio">'.$producto->precio.'€</p>';
+				echo '<p class="udsCarrito stock"><b>'.$cantidad.'</b> uds.</p>';
+				echo '<button type="submit" name="eliminarDeCarrito" value="'.$id.'">Eliminar del carrito</button>';
+				echo '</div>';
 			}
 			?>
 		</div>
-
 		<button id="bttnComprar">Comprar</button>
 	</form>
 </body>

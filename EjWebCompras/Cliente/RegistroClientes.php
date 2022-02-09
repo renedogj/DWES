@@ -9,7 +9,6 @@
 	<?php
 	include("../Cliente/Cliente.php");
 	include("../funciones.php");
-	$con = crearConexion();
 	?>
 	<div class="divFormRegistrar">
 		<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -51,6 +50,7 @@
 	</div>
 	<?php
 	if (formularioEnviado()){
+		$con = crearConexion();
 		foreach($_POST as $id => $input){
 			$$id = limpiar($input);
 		}
@@ -66,8 +66,8 @@
 		}else{
 			echo "El nif introducido no es valido";
 		}
+		$con = null;
 	}
-	$con = null;
 	?>
 </body>
 </html>

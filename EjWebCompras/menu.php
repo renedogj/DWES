@@ -1,7 +1,10 @@
 <?php
-session_start();
+//session_start();
 include("funciones.php");
-if(!isset($_SESSION['nif'])){
+/*if(!isset($_SESSION['nif'])){
+	redirecionarALogin();
+}*/
+if(!isset($_COOKIE['nif'])){
 	redirecionarALogin();
 }
 ?>

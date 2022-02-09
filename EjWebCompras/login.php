@@ -1,10 +1,13 @@
 <?php
-session_start();
+//session_start();
 $redireccion = "menu.php";
-if(isset($_SESSION['nif'])){
+/*if(isset($_SESSION['nif'])){
 	$nif = $_SESSION['nif'];
-	//header('Location: '.$redireccion);
-	//die();
+}else{
+	$nif = "";
+}*/
+if(isset($_COOKIE['nif'])){
+	$nif = $_COOKIE['nif'];
 }else{
 	$nif = "";
 }
@@ -43,8 +46,10 @@ include("funciones.php");
 		$con = crearConexion();
 		$cliente = Cliente::comprobarCredenciales($con,$nif,$password);
 		if($cliente != null){
-			$_SESSION['nif'] = $nif;
-			$_SESSION['carrito'] = array();
+			//$_SESSION['nif'] = $nif;
+			//$_SESSION['carrito'] = array();
+			setNormalCookie("nif",$nif);
+			setArrayCookie("carrito",array());
 			header('Location: '.$redireccion);
 			die();
 		}else{

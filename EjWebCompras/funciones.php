@@ -2,7 +2,7 @@
 function crearConexion(){
 	$servidor = "localhost";
 	$usuario = "root";
-	$password = "rootroot";
+	$password = "";
 	$dataBase="comprasweb";
 
 	try {
@@ -40,5 +40,18 @@ function cerrarSesion(){
 	session_unset();
 	session_destroy();
 	redirecionarALogin();
+}
+
+function setNormalCookie($nombre,$valor){
+	setcookie($nombre,$valor, time() + 365 * 24 * 60 * 60, "/");
+}
+
+function setArrayCookie($nombre,$array){
+	setcookie($nombre,serialize($array), time() + 365 * 24 * 60 * 60, "/");
+}
+
+
+function borrarCookie($nombre){
+	setcookie($nombre, false, time()-60, "/");
 }
 ?>
