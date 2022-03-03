@@ -33,7 +33,7 @@
 	<br><br>
 		
 					
-		
+	
 		<div>
 			<input type="submit" value="Devolver Pelicula" name="devolver" class="btn btn-warning disabled">
 			<input type="submit" value="Volver" name="volver" class="btn btn-warning disabled">

@@ -41,7 +41,7 @@ function obtenerThemes($con){
 }
 
 function obtenerPeliculasAlquiladasTematica($con,$customer_id,$theme){
-	$sql = "SELECT title,release_year,rental_date,return_date FROM film,rental where film.film_id=rental.film_id and customer_id='$customer_id' and theme='$theme'";
+	$sql = "SELECT title,release_year,rental_date,return_date FROM film,rental where film.film_id=rental.film_id and customer_id='$customer_id' and theme='$theme' and return_date is not null ";
 
 	$stmt = $con->prepare($sql);
 	$stmt->execute();
